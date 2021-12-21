@@ -1,43 +1,47 @@
 <template>
   <section>
-    <input type="text" placeholder="Inserisci un titolo" v-model="input">
+    <input type="text" placeholder="Inserisci un titolo" v-model="globalData.input">
     <button @click="getFilms">Search</button>
-    <ul>
-      <li v-for="(film, index) in films" :key="index">
-        <h2>{{film.title}}</h2>
-        <p>{{film.release_date}}</p>
-        <p>{{film.original_language}}</p>
-        <p>{{film.vote_average}}</p>
-      </li>
-    </ul>
+    <select v-model="globalData.select" @change="globalData.films = []">
+      <option value="movie" :selected="true">Film</option>
+      <option value="tv">Tv Show</option>
+    </select>
   </section>
 </template>
 
 <script>
 import axios from './../../node_modules/axios';
+import globalData from './../assets/globalData';
 
 export default {
   name: 'SearchBar',
   data(){
     return {
-      input: '',
-      films: [],
+      globalData,
     }
   },
   methods: {
     getFilms(){
-      if(this.input != ''){
+      let url = '';
+      if(globalData.select == 'movie'){
+        url = 'https://api.themoviedb.org/3/search/movie'
+      } else {
+        url = 'https://api.themoviedb.org/3/search/tv'
+      }
+      if(globalData.input != ''){
         axios.get(
-          'https://api.themoviedb.org/3/search/movie',{
+          url,{
           params: {
             api_key: 'f3e677cbc259bed9fb123e5be31d467a',
-            language: 'it-IT',
-            query: this.input
+            // language: 'it-IT',
+            query: globalData.input
           }
         })
         .then((response)=>{
           // handle success
-          this.films = response.data.results
+          console.log(response.data.results);
+          console.log(globalData.select);
+          globalData.films = response.data.results
         })
         .catch(function (error) {
           // handle error
