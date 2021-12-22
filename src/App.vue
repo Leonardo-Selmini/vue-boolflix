@@ -1,25 +1,34 @@
 <template>
   <div id="app">
-    <SearchBar/>
+    <Header/>
     <Main/>
   </div>
 </template>
 
 <script>
 // --import--
-import SearchBar from './components/SearchBar.vue';
+import Header from './components/Header.vue';
 import Main from './components/Main.vue';
 
 // --export--
 export default {
   name: 'App',
   components: {
-    SearchBar,
+    Header,
     Main,
   }
 }
 </script>
 
 <style lang="scss">
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
 
+body {
+  background-color: #141414;
+}
 </style>

@@ -1,11 +1,11 @@
 <template>
   <section>
-    <input type="text" placeholder="Inserisci un titolo" v-model="globalData.input">
-    <button @click="getFilms">Search</button>
     <select v-model="globalData.select" @change="globalData.films = []">
       <option value="movie" :selected="true">Film</option>
       <option value="tv">Tv Show</option>
     </select>
+    <input type="text" placeholder="Inserisci un titolo" v-model="globalData.input">
+    <button @click="getFilms">Search</button>
   </section>
 </template>
 
@@ -33,7 +33,7 @@ export default {
           url,{
           params: {
             api_key: 'f3e677cbc259bed9fb123e5be31d467a',
-            // language: 'it-IT',
+            language: 'en-EN',
             query: globalData.input
           }
         })
@@ -54,5 +54,41 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  input {
+    font-size: 1.2rem;
+    background-color: #141414;
+    color: white;
+    padding: .8rem;
+    border: 1px solid #141414;
+    outline: none;
 
+    &:focus {
+      border: 1px solid white;
+    }
+  }
+
+  select {
+    font-size: 1.2rem;
+    background-color: #141414;
+    color: white;
+    padding: .8rem;
+    border: none;
+    outline: none;
+
+    &:hover {
+      background-color: #222222;
+    }
+  }
+
+  button {
+    font-size: 1.2rem;
+    background-color: #141414;
+    color: white;
+    padding: .8rem;
+    border: 1px solid #141414;
+
+    &:hover {
+    background-color: #222222;
+    }
+  }
 </style>
